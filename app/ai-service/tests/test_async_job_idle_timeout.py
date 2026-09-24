@@ -189,9 +189,7 @@ def test_timed_out_is_terminal_and_metric_increments_once(monkeypatch, idle_wind
 def test_client_supplied_task_type_is_bounded_for_idle_timeout_metric(
     monkeypatch, idle_window
 ):
-    _seed_queued_task(
-        "ocr-idle-6", task_type="<weird>&type", idle_for=idle_window + 5
-    )
+    _seed_queued_task("ocr-idle-6", task_type="<weird>&type", idle_for=idle_window + 5)
     _install_async_result(monkeypatch, state="PENDING")
     other_before = _count(metrics.JOB_IDLE_TIMEOUT_TOTAL, metrics.OTHER_TASK_TYPE_LABEL)
 
@@ -210,7 +208,9 @@ def test_client_supplied_task_type_is_bounded_for_idle_timeout_metric(
 # ---------------------------------------------------------------------------
 
 
-def test_job_status_endpoint_reports_timed_out_with_reason(client, monkeypatch, idle_window):
+def test_job_status_endpoint_reports_timed_out_with_reason(
+    client, monkeypatch, idle_window
+):
     _seed_queued_task("ocr-idle-api-1", task_type="ocr", idle_for=idle_window + 5)
     _install_async_result(monkeypatch, state="PENDING")
 
